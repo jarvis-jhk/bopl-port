@@ -1,0 +1,62 @@
+# M9 key rebinding (ui.md 6): bopl-port --headless --drive scripts/dev/m9-remap.drive
+#   --screenshot scratch/m9/remap.png
+# Keyboard + mouse joins, rebinds jump/abilities/directions (one clash), a
+# controller joins and rebinds its four buttons, a second controller joins
+# and keeps the defaults (bindings are per player box), the keyboard player
+# readies with the new jump key... then a match where the new keys play.
+60 press km accept
+0 wait charsel
+30 key Return                 # keyboard + mouse joins box 0
+20 press km up                # team row -> rebind row
+15 shot 01-rebind-row
+5 key Return                  # start rebinding
+20 shot 02-rebind-start
+10 key K                      # jump
+10 key Mouse1                 # ability left (slot 0)
+10 shot 03-two-bound
+5 key K                       # clash: wiggle + smallError
+6 shot 04-clash
+20 key Mouse3                 # ability top (slot 2)
+10 key Mouse2                 # ability right (slot 1)
+10 key I                      # up
+15 shot 05-directions
+5 key J                       # left
+10 key Down                   # down
+10 key L                      # right: done (accept2)
+20 shot 06-done
+# a controller joins and rebinds jump/abilities
+10 button pad0 a
+20 press pad0 up
+10 button pad0 a
+20 button pad0 dpup           # refused (reserved)
+10 button pad0 rightshoulder  # jump
+10 button pad0 x              # left
+10 shot 07-pad-rebinding
+10 button pad0 leftshoulder   # top
+10 button pad0 b              # right: done
+20 shot 08-pad-done
+10 button pad1 a              # a second controller joins box 2 (defaults)
+20 shot 08b-pad1-joined
+# keyboard player: down to the ready button (Down is still the down key)
+10 key Down 4
+10 key Down 4
+10 key Down 4
+10 key Down 4
+10 key Down 4
+10 key Down 4
+10 key Return                 # ready
+10 button pad0 start          # pad ready
+10 button pad1 start          # second pad ready
+20 shot 09-ready
+10 key Return                 # start
+0 wait round
+100 shot 09b-round
+120 key K 10                  # the new jump key
+14 shot 10-jump-k
+40 button pad0 rightshoulder 10
+14 shot 11-pad-jump
+40 button pad1 a 10           # pad1 still jumps with A
+14 shot 12-pad1-a-jump
+40 button pad0 a 10           # pad0's A is unbound now: nothing
+14 shot 13-pad0-a-nothing
+60 quit

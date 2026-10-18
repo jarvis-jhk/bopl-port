@@ -1,0 +1,8 @@
+# Walking around Level1's main platform over its rounded corners (sticky
+# surface walking incl. the underside), jumps from walls, a fall into the water.
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+script 1 240: ; 90:L ; 60:D ; 60:R ; 120:R ; 40:L ; 4:LJ ; 60:L ; 200:R ; 120:D ; 60:L ; 8:J ; 100:R ; 300:L
+ticks 1500

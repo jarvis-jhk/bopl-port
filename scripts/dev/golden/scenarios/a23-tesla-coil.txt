@@ -1,0 +1,12 @@
+# Tesla coil: plant two coils on the main platform; P4 walks into the beam.
+# First cast at tick 240 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+player color=0 team=2 abilities=23
+player color=7 team=3 abilities=2
+script 3 240: ; 3:1 ; 70: ; 100:R ; 3:1 ; 200:
+script 4 500: ; 200:L ; 100:
+ticks 1100

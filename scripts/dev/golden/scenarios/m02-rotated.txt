@@ -1,0 +1,10 @@
+# Rotated platforms (Level2): landing on and walking along slopes, jumping
+# between the two diagonal platforms.
+level 7
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+script 1 240: ; 60:R ; 40:L ; 6:J ; 60:R ; 30: ; 10:RJ ; 50:R ; 60:L ; 8:LJ ; 80:L ; 60:
+script 2 240: ; 80:L ; 12:J ; 40:L ; 60: ; 30:R ; 6:RJ ; 90:R
+ticks 1300

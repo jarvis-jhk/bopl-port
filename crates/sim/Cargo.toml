@@ -1,0 +1,15 @@
+[package]
+name = "bopl-sim"
+description = "Deterministic Q32.32 fixed-point simulation of Bopl Battle (no I/O, no rendering)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+bytemuck = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }
+# Scenario tests on imported levels (tests/abilities_*.rs).
+bopl-content = { path = "../content" }

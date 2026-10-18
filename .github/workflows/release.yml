@@ -1,0 +1,90 @@
+name: Release
+
+# Push a tag v<version> (version = [workspace.package] version in Cargo.toml):
+# builds the Linux tarball and the Windows zip, writes SHA256SUMS and creates
+# the GitHub release the Warpzone launcher installs from
+# (packaging/warpzone/bopl-port.toml). Tag a commit that passed CI.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag must match the crate version
+        run: |
+          v=$(sed -n '/^\[workspace\.package\]/,/^\[/{s/^version *= *"\(.*\)"/\1/p}' Cargo.toml | head -1)
+          [ "${GITHUB_REF_NAME}" = "v$v" ] || { echo "tag ${GITHUB_REF_NAME} != v$v (Cargo.toml)"; exit 1; }
+      - run: scripts/check-no-game-data.sh
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libsdl2-dev mesa-vulkan-drivers libvulkan1 binutils
+      - uses: ./.github/actions/setup-rust
+        with:
+          cache-key: release-linux
+      - env:
+          WGPU_ADAPTER_NAME: llvmpipe
+        run: |
+          export SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)
+          scripts/package-linux.sh --verify
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bopl-port-linux
+          path: dist/*.tar.gz
+          if-no-files-found: error
+
+  windows:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-rust
+        with:
+          targets: x86_64-pc-windows-gnu
+          cache-key: release-windows
+      - uses: actions/cache@v4
+        with:
+          path: tools/windows/downloads
+          key: windows-toolchain-${{ hashFiles('scripts/fetch-windows-toolchain.sh') }}
+      - run: scripts/fetch-windows-toolchain.sh
+      - run: |
+          export SOURCE_DATE_EPOCH=$(git log -1 --format=%ct)
+          scripts/package-windows.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bopl-port-windows
+          path: dist/*.zip
+          if-no-files-found: error
+
+  publish:
+    needs: [linux, windows]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: SHA256SUMS over both archives, no game data inside
+        run: |
+          scripts/package-checksums.sh dist
+          scripts/check-no-game-data.sh --archives dist/bopl-port-*
+          ls -l dist
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          flags=()
+          # v0.x (early development) and v1.2.0-rc.1 and the like are prereleases
+          # (the Warpzone descriptor has prerelease = true).
+          case "$GITHUB_REF_NAME" in v0.*|*-*) flags+=(--prerelease) ;; esac
+          gh release create "$GITHUB_REF_NAME" dist/bopl-port-*.tar.gz dist/bopl-port-*.zip dist/SHA256SUMS \
+            --title "bopl-port ${GITHUB_REF_NAME#v}" --generate-notes "${flags[@]}"

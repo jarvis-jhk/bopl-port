@@ -1,0 +1,29 @@
+[package]
+name = "bopl-import"
+description = "Imports Bopl Battle game data from a Unity install into bopl-port's own format"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[[bin]]
+name = "bopl-import"
+path = "src/main.rs"
+
+[[bin]]
+name = "level-sheet"
+path = "src/bin/level-sheet.rs"
+
+[dependencies]
+unity-assets = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true }
+glam = { workspace = true }
+rayon = { workspace = true }
+png = { workspace = true }
+tiny-skia = { workspace = true }

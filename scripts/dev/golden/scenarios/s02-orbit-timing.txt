@@ -1,0 +1,17 @@
+# Tick correspondence against an input-independent clock: Level12's orbiting
+# platforms move every tick, so a jump one tick earlier or later leaves from a
+# different place and the runs drift apart (several units within 10 s). The
+# capture is compared with our sim at input shifts -2..+2 (golden sim --shift);
+# jumps at irregular intervals so the frame/tick alignment cannot alias, and
+# no horizontal input so the bopl mostly stays upright (compare --y-only: the
+# camera cannot be measured when every platform moves).
+level 17
+seed 7
+abilities 1
+player color=1 team=0 abilities=2
+script 1 230: ; 8:J ; 82: ; 8:J ; 85: ; 3:J ; 88: ; 12:J ; 84: ; 5:J ; 76: ; 3:J
+script 1 92: ; 5:J ; 42: ; 8:J ; 65: ; 5:J ; 59: ; 3:J ; 71: ; 5:J ; 35: ; 5:J
+script 1 61: ; 8:J ; 46: ; 12:J ; 45: ; 3:J ; 43: ; 12:J ; 43: ; 5:J ; 35: ; 3:J
+script 1 48: ; 5:J ; 45: ; 5:J ; 53: ; 8:J ; 47: ; 5:J ; 46: ; 5:J ; 92: ; 12:J
+script 1 54: ; 3:J ; 58: ; 12:J ; 45:
+ticks 2000

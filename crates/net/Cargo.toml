@@ -1,0 +1,18 @@
+[package]
+name = "bopl-net"
+description = "Online play: GGRS rollback over Warpzone peer channels, lobby and match protocol"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ggrs.workspace = true
+bincode.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+log.workspace = true
+warpzone-core.workspace = true
+
+[[example]]
+name = "netsim"
+path = "examples/netsim.rs"

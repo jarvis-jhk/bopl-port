@@ -1,0 +1,27 @@
+[package]
+name = "bopl-port"
+description = "bopl-port game binary: SDL2 platform layer (window, input, audio), level presentation, app loop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "bopl-port"
+path = "src/main.rs"
+
+[dependencies]
+bopl-render.workspace = true
+bopl-import.workspace = true
+bopl-sim = { path = "../sim" }
+bopl-content = { path = "../content" }
+bopl-net.workspace = true
+bytemuck.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sdl2.workspace = true
+lewton.workspace = true
+glam.workspace = true
+anyhow.workspace = true
+log.workspace = true
+pollster.workspace = true

@@ -1,0 +1,80 @@
+# bopl-port — a clean-room Rust reimplementation of Bopl Battle (Johan
+# Grönvall, 2023).
+# Tier 2: the game links warpzone-core directly (crates/net): host screen,
+# room browser, codes, invite links, --warpzone-join/--warpzone-host, rollback
+# netcode (GGRS) over Warpzone's encrypted peer channels, any mix of local and
+# online players up to 12. Validate with
+#   scripts/net/dev-server.sh --check     (warpzone-server check-games packaging/warpzone)
+id = "bopl-port"
+name = "Bopl Battle (bopl-port)"
+tagline = "The ability-mixing slime brawler, rebuilt: up to 12 bopls on one screen or online, with rollback."
+description = """
+An open-source, clean-room reimplementation of Bopl Battle for Linux and Windows. Every sprite, sound, level and ability is loaded from your own copy of the game; nothing of the original is included or downloaded.
+
+Up to twelve players in any mix: twelve controllers on one screen, twelve machines online, or several couches against each other. Free-for-all or teams of any split, with every ability of the original to combine, all unlocked from the start.
+
+Warpzone brings public and private rooms, join codes, invite links and NAT traversal; online play uses rollback netcode on the original's deterministic fixed-point simulation, so remote players feel as responsive as the one next to you on the couch."""
+homepage = "https://github.com/jarvis-jhk/bopl-port"
+accent = "#5fc8e8"
+motif = "arena"
+tier = 2
+local_players = 12
+third_party = false
+status = "in development"
+requires = "your own copy of Bopl Battle (Steam) — bopl-port imports its assets at first start"
+
+[install]
+github = "jarvis-jhk/bopl-port"
+prerelease = true
+checksums = "SHA256SUMS"
+assets = { linux = "bopl-port-*-linux-x86_64.tar.gz", deck = "bopl-port-*-linux-x86_64.tar.gz", windows = "bopl-port-*-windows-x86_64.zip" }
+
+[launch]
+# Linux: play.sh (sets LD_LIBRARY_PATH to the bundled lib/ if there is one, then
+# execs the binary with every argument). Windows: the exe, SDL2.dll beside it.
+# Asset and launcher names are placeholders until packaging (M11).
+exec = { linux = "bopl-port-*/play.sh", deck = "bopl-port-*/play.sh", windows = "bopl-port-*/bopl-port.exe" }
+join = ["--warpzone-join", "{room}"]
+host = ["--warpzone-host"]
+
+[rooms]
+# Members (machines). Player slots are counted by the game: at most 12 in
+# total, any number of them local to one machine; machines without players
+# can spectate.
+max_players = 12
+presets = [
+  { id = "ffa", label = "free-for-all" },
+  { id = "teams", label = "teams" },
+]
+display = [
+  { key = "players", label = "Players" },
+  { key = "mode", label = "Mode" },
+  { key = "map", label = "Level" },
+]
+
+# The launcher looks for a Bopl Battle install (Steam libraries, Proton and
+# Wine prefixes, Downloads, ...) and hands it over twice: as
+# WARPZONE_DATA_BOPL on every start, and once through import_args
+# (`bopl-port --import --game DIR`, which converts the data and exits) until
+# `present` exists. The import lives in the game's user data dir as
+# import-v<FORMAT_VERSION>/ (crates/import, `FORMAT_VERSION`); bump the two
+# `present` paths when that number changes (the game re-imports by itself at
+# its next start either way, so a stale path only means the launcher runs the
+# import once more).
+[[data]]
+id = "bopl"
+label = "Bopl Battle (Steam, Windows build)"
+description = "An installed copy of Bopl Battle: the folder with BoplBattle.exe and BoplBattle_Data. bopl-port reads it once and keeps its own converted copy; the install is never modified."
+files = ["BoplBattle_Data/globalgamemanagers", "./BoplBattle.exe"]
+steam = ["Bopl Battle"]
+downloads = false
+discs = false
+buy = [{ label = "Steam", url = "https://store.steampowered.com/app/1686940/Bopl_Battle/" }]
+import_args = ["--import", "--game", "{path}"]
+# `~` is the home directory (USERPROFILE on Windows); %APPDATA% = ~/AppData/Roaming.
+# A custom XDG_DATA_HOME or BOPL_PORT_DATA_DIR is not seen here: harmless, the
+# import then simply runs (and returns at once) at each start.
+present = [
+  "~/.local/share/bopl-port/import-v1/index.json",
+  "~/AppData/Roaming/bopl-port/import-v1/index.json",
+]

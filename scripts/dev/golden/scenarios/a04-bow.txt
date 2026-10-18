@@ -1,0 +1,9 @@
+# Bow drawn and shot right at P2.
+# First cast at tick 318 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=4
+player color=4 team=1 abilities=2
+script 1 318: ; 40:^3 1 ; 2:^3 ; 200: ; 60:^8 1 ; 200:
+ticks 978

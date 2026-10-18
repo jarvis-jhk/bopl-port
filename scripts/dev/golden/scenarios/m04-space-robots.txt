@@ -1,0 +1,11 @@
+# Space gravity and robot platforms (Level_new1): jumps in low gravity,
+# landing on and pushing free robot platforms. Every platform drifts, so the
+# camera cannot be measured: compare --y-only.
+level 68
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+script 1 240: ; 10:J ; 60: ; 60:R ; 10:J ; 80:R ; 60: ; 10:RJ ; 80:L ; 120: ; 8:J ; 100:L
+script 2 240: ; 60:L ; 10:LJ ; 80:L ; 60: ; 10:J ; 100:R ; 80:
+ticks 1300

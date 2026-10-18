@@ -1,0 +1,11 @@
+# Spike: slam the platform, spike out of the far side (downwards towards P3).
+# First cast at tick 348 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=11
+player color=4 team=1 abilities=2
+player color=0 team=2 abilities=2
+player color=7 team=3 abilities=2
+script 1 348: ; 3:1 ; 200: ; 3:1 ; 300:
+ticks 1108

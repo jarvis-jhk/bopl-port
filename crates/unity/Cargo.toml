@@ -1,0 +1,19 @@
+[package]
+name = "unity-assets"
+description = "Reader for Unity 2022.3 SerializedFiles (format 22) without embedded type trees"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+memmap2 = { workspace = true }
+bcdec_rs = { workspace = true }
+
+[dev-dependencies]
+lewton = { workspace = true }
+rayon = { workspace = true }

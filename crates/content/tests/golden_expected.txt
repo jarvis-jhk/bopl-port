@@ -1,0 +1,39 @@
+a02-dash 1368 e5b2d731e7c2f6c3
+a03-grenade 1263 f6ff8e020ba726f8 died1@725 won1@726 winner@848
+a04-bow 1278 f8a1340a63a5a81f
+a05-engine 1338 32e1559c7c869bb8
+a06-blink-gun 1278 795c851769228e4d
+a07-gust 1528 907e7fbcb75eff71 died3@479
+a08-growth-ray 1378 bf0208d0ff71b2d3
+a09-rock 1348 39699474e3d1174e
+a10-missile 1368 4b130df6c16627b9
+a11-spike 1408 7a9f57411346093e died3@371
+a12-time-stop 1908 989c1b3e946b46ba
+a12b-time-stop-clock 2500 ad194ef43ade9ab9
+a13-smoke 1408 ea70010c0e1db315
+a14-platform 1588 f902951cee1acd61
+a15-revival 2028 9b2e58402e621404
+a16-roll 1338 5dc7244978bdb89a died4@459 died3@463
+a17-shrink-ray 1378 8932af4c1b0f8c27
+a18-black-hole 1598 f15da33462ab8ccd died1@497
+a19-invisibility 1348 400e3459150b691f
+a20-meteor 1468 4c0a06c38579822b
+a21-throw 1200 2c8e91a105570069
+a22-push 1200 13c8f67131403bed died3@359
+a23-tesla-coil 1400 5348dd61d593e7be
+a24-mine 1498 cbd8e5cafc9a8e2c
+a25-teleport 1308 0fde62c374798aa6
+a26-drill 1368 df790f66bef2aac9 died3@477 died1@523
+a27-grappling-hook 1308 c82d025981656a30
+a28-beam 1658 eb2b343e1e79133f
+a29-duplicator 1568 d9b886eb048161fa
+a29b-duplicator-clock 1780 ca4f891e85cd5421
+a30-magnet-gun 1428 d92ddcef6fdc98b2
+m01-walk-corners 1800 4059099dc05f6c20 died1@881 won0@882 winner@1004
+m02-rotated 1600 a000f2174fd6e63b
+m03-rotated-long 1600 0f39023c1e7618ab
+m04-space-robots 1600 e627970d36ec1928 died2@438 won0@439 winner@561
+m05-space-asteroids 1600 c54902433bb16650 died2@480 won0@481 winner@603
+m06-ice 1500 d025f57514a265a8 died1@772 won1@773 winner@895
+s01-jumps 1800 45319185a9e67375
+s02-orbit-timing 2300 cb7b1c1174e30a7c

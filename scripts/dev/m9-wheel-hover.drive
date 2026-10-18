@@ -1,0 +1,31 @@
+# Mouse on the ability wheel: the keyboard + mouse player (standing still,
+# two bots) is eliminated, opens the wheel (W), then hovers the rows
+# (HoverCircle: the hovered row becomes the selection).
+# bopl-port --headless --drive scripts/dev/m9-wheel-hover.drive --screenshot scratch/m9/wheel/h.png --size 1280x720
+60 press km accept
+0 wait charsel
+30 press km accept
+15 press pad0 accept
+15 press pad1 accept
+20 press km down
+8 press km down
+8 press km down
+8 press km down
+8 press km down
+8 press km accept
+8 press pad0 start
+8 press pad1 start
+20 press km accept
+0 wait match
+0 bot pad0
+0 bot pad1
+0 wait wheel 0
+8 key W
+30 shot 01-wheel-open
+5 point 1215 543
+20 shot 02-hover-a
+5 point 1215 588
+20 shot 03-hover-b
+5 point 1215 500
+20 shot 04-hover-c
+5 quit

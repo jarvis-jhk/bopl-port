@@ -1,0 +1,10 @@
+# Smoke grenade thrown right; P2 walks through the clouds.
+# First cast at tick 348 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=13
+player color=4 team=1 abilities=2
+script 1 348: ; 25:^20 1 ; 300:
+script 2 300: ; 200:L ; 200:R
+ticks 1108

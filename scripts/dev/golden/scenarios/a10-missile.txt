@@ -1,0 +1,11 @@
+# Missile fired right, steered down onto P4.
+# First cast at tick 408 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=10
+player color=4 team=1 abilities=2
+player color=0 team=2 abilities=2
+player color=7 team=3 abilities=2
+script 1 408: ; 40:^0 1 ; 30:^330 1 ; 30:^300 1 ; 200:
+ticks 1068

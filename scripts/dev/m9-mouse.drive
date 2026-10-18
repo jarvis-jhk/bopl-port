@@ -1,0 +1,19 @@
+# Mouse in character select: hover a row, click the side arrow, open the
+# bopl-port --headless --drive scripts/dev/m9-mouse.drive --screenshot scratch/m9/polish/m.png --size 1280x720
+# grid with a click, hover and click an icon.
+60 press km accept
+0 wait charsel
+30 key Return
+40 point 278 378
+20 shot 01-hover-row
+5 point 345 378
+10 key Mouse1
+20 shot 02-click-right-arrow
+5 point 278 378
+10 key Mouse1
+30 shot 03-grid
+5 point 300 300
+20 shot 04-grid-hover
+5 key Mouse1
+30 shot 05-picked
+5 quit

@@ -1,0 +1,9 @@
+# Throw: rip a boulder out of the platform and throw it at P2.
+# First cast at tick 240 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=21
+player color=4 team=1 abilities=2
+script 1 240: ; 60:1 ; 30:^20 1 ; 2:^20 ; 300:
+ticks 900

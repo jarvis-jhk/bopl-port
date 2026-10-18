@@ -1,0 +1,30 @@
+# M9: remote "busy" dots (ui.md 5): the M8 online test (scripts/net/gui-online.sh
+# with this drive) until a remote bot opens its ability wheel.
+0 wait charsel
+30 press pad0 accept
+6 press pad1 accept
+6 press pad2 accept
+6 press km accept
+10 press pad1 right
+8 press km down
+8 press km down
+8 press km down
+8 press km down
+8 press km down
+8 press km accept
+4 press pad0 start
+4 press pad1 start
+4 press pad2 start
+0 wait machines 3
+60 press pad0 start
+0 wait match
+0 bot km
+0 bot pad0
+0 bot pad1
+0 bot pad2
+0 wait busy
+4 shot 01-busy-dots
+10 shot 02-busy-dots
+0 wait winner
+20 shot 03-winner
+10 quit

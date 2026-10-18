@@ -1,0 +1,13 @@
+# M9: joining a room whose host has other game data (BOPL_CONTENT_ID) ->
+# refused, back to the main menu with the reason on the error line.
+60 press km down
+8 press km accept             # online
+40 press km down
+8 press km down
+8 press km down               # room list
+8 press km accept
+300 shot 01-rooms
+8 press km accept             # the first room
+30 wait menu
+60 shot 02-refused
+20 quit

@@ -1,0 +1,9 @@
+# Ice platforms (Snow/Level15): sliding friction, stopping, turning.
+level 28
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+script 1 240: ; 80:R ; 60: ; 80:L ; 30: ; 6:J ; 60:R ; 90: ; 50:L ; 8:LJ ; 80:
+script 2 240: ; 60:L ; 80: ; 60:R ; 10:J ; 100:L
+ticks 1200

@@ -1,0 +1,17 @@
+[package]
+name = "bopl-render"
+description = "wgpu renderer for bopl-port: Unity-style multi-camera passes, the original's sprite shaders, sprite masks, TextMeshPro SDF text, offscreen capture"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[dependencies]
+wgpu.workspace = true
+bytemuck.workspace = true
+fontdue.workspace = true
+png.workspace = true
+pollster.workspace = true
+glam.workspace = true
+log.workspace = true
+thiserror.workspace = true

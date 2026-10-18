@@ -1,0 +1,54 @@
+# M9 tutorial (docs/spec/tutorial.md): bopl-port --headless --drive
+#   scripts/dev/m9-tutorial.drive --screenshot scratch/m9/tutorial.png
+# Main menu -> Tutorial with the keyboard; the arrows (A, S, D, W), the bow
+# pickup (jump); a controller takes over (gamepad hints), shoots the first
+# dummy, picks the grenade, throws it at the second dummy, picks dash and
+# dashes: back to the main menu.
+60 press km down
+8 press km down
+8 press km down
+20 shot 01-menu-tutorial
+8 key Return
+0 wait tutorial
+100 shot 02-start
+5 key A 60
+70 shot 03-after-a
+5 key S 60
+70 shot 04-after-s
+5 key D 90
+100 shot 05-after-d
+5 key W 90
+100 shot 06-after-w
+5 key A 8
+20 key Space 12
+50 shot 07-bow-pickup
+120 shot 08-ground-down
+# a controller takes over and shoots the dummy on the right
+10 button pad0 a 2
+60 shot 09-gamepad-hints
+5 stick pad0 0.82 0.57 70
+5 press pad0 a0 45
+60 shot 10-bow-shot
+60 shot 11-after-shot
+# the grenade pickup (jump), then the left dummy comes down
+5 stick pad0 -1 0 30
+32 button pad0 a 12
+50 shot 12-grenade-pickup
+120 shot 13-left-ground
+5 press pad0 a1 22
+2 stick pad0 -0.62 0.78 60
+40 shot 14-grenade-thrown
+90 shot 15-after-grenade
+# (the throw misses; an arrow hits the left dummy too: it is in its mask)
+5 stick pad0 -0.62 0.78 70
+5 press pad0 a0 45
+100 shot 15b-left-dummy-hit
+# the dash pickup, then dash
+5 stick pad0 1 0 26
+28 button pad0 a 12
+50 shot 16-dash-pickup
+20 press pad0 a2 6
+10 shot 17-dash
+0 wait menu
+30 shot 18-menu-back
+10 quit

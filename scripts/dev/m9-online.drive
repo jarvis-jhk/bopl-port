@@ -1,0 +1,29 @@
+# M9 online UI (scripts/net/m9-online-ui.sh): main menu -> online -> player
+# name entry -> room list (a public room hosted by a --net-peer) -> join ->
+# lobby -> a box joins -> back to the menu.
+60 shot 01-menu
+8 press km down
+8 press km accept             # online
+40 shot 02-online-menu
+8 press km down
+8 press km down
+8 press km down
+8 press km down               # name
+8 press km accept
+10 type bopl tester
+20 shot 03-name-typing
+5 key Return
+20 shot 04-name-set
+8 press km up                 # room list
+8 press km accept
+300 shot 05-rooms
+8 press km accept             # the first room
+0 wait machines 2
+90 shot 06-lobby
+8 key Return                  # keyboard + mouse joins a box
+40 shot 07-lobby-joined
+8 key Escape                  # leave the box
+20 key Escape                 # leave the room
+0 wait menu
+40 shot 08-menu-back
+20 quit

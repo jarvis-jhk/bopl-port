@@ -1,0 +1,9 @@
+# Platform ability: rotate, stretch and drop a platform; P1 walks on it.
+# First cast at tick 528 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=14
+player color=4 team=1 abilities=2
+script 1 528: ; 20:^90 1 ; 40:^0 1 ; 30:^340 1 ; 100: ; 80:R ; 8:J ; 100:R ; 100:
+ticks 1288

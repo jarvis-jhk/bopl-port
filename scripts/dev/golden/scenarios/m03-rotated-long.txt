@@ -1,0 +1,10 @@
+# Long rotated platforms (Level21): sliding down slopes, wall climbing, jump
+# off an overhang.
+level 26
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+script 1 240: ; 120:L ; 60:U ; 60:L ; 8:J ; 80:R ; 120:D ; 40:R ; 10:J ; 100:L
+script 2 240: ; 100:R ; 50: ; 100:L ; 6:J ; 100:R ; 60:U ; 120:L
+ticks 1300

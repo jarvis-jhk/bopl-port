@@ -1,0 +1,9 @@
+# Invisibility: P1 vanishes, walks right, reappears.
+# First cast at tick 288 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=19
+player color=4 team=1 abilities=2
+script 1 288: ; 3:1 ; 60:R ; 120: ; 3:1 ; 200:L ; 200:
+ticks 1048

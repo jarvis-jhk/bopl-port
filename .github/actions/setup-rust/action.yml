@@ -1,0 +1,40 @@
+name: Rust toolchain in tools/
+description: >
+  Installs rustup + stable Rust into ./tools (the same place env.sh and
+  scripts/bootstrap-tools.sh use, so the project scripts work unchanged on a
+  runner) and exports RUSTUP_HOME / CARGO_HOME / PATH for the following steps.
+inputs:
+  components:
+    description: Comma-separated rustup components
+    default: ""
+  targets:
+    description: Comma-separated extra targets
+    default: ""
+  cache-key:
+    description: Cache key suffix (one per job kind)
+    default: default
+runs:
+  using: composite
+  steps:
+    - name: Install rustup and stable into tools/
+      shell: bash
+      env:
+        COMPONENTS: ${{ inputs.components }}
+        TARGETS: ${{ inputs.targets }}
+      run: |
+        export RUSTUP_HOME="$PWD/tools/rustup" CARGO_HOME="$PWD/tools/cargo"
+        extra=()
+        [ -n "$COMPONENTS" ] && extra+=(-c "$COMPONENTS")
+        [ -n "$TARGETS" ] && extra+=(-t "$TARGETS")
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \
+          | sh -s -- -y --no-modify-path --profile minimal --default-toolchain stable "${extra[@]}"
+        {
+          echo "RUSTUP_HOME=$RUSTUP_HOME"
+          echo "CARGO_HOME=$CARGO_HOME"
+        } >> "$GITHUB_ENV"
+        echo "$CARGO_HOME/bin" >> "$GITHUB_PATH"
+    - name: Cache registry and build output
+      uses: Swatinem/rust-cache@v2
+      with:
+        shared-key: ${{ inputs.cache-key }}
+        cache-bin: false

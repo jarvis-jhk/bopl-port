@@ -1,0 +1,10 @@
+# Space level with round asteroids (Level35): walking around round platforms,
+# long low-gravity jumps between them.
+level 39
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+script 1 240: ; 120:R ; 10:J ; 60:R ; 90: ; 120:L ; 12:J ; 100:L ; 60:D
+script 2 240: ; 90:L ; 10:LJ ; 90:L ; 60: ; 200:R
+ticks 1300

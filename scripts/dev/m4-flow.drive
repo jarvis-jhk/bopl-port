@@ -1,0 +1,83 @@
+# M4 headless flow test (bopl-port --headless --drive scripts/dev/m4-flow.drive
+#   --screenshot scratch/m4/flow.png): main menu -> character select (keyboard +
+# mouse and two controllers join, colour, team, ability grid, ready) -> start ->
+# 3 rounds played by bots (the devices drive menus and the wheel) -> mid-game
+# ability wheel -> winner screen -> back to character select -> main menu.
+# Syntax: crates/game/src/driver.rs.
+60 shot 01-menu
+8 press km down
+10 shot 02-menu-online-selected
+8 press km up
+10 press km accept
+0 wait charsel
+40 shot 03-charsel
+8 press km accept            # keyboard + mouse joins box 0
+15 press pad0 accept         # controller 0 joins box 1
+15 press pad1 start          # controller 1 joins box 2
+30 shot 04-joined
+# km: team row -> colour row, next colour, then ready
+8 press km down
+8 press km down
+8 press km down
+8 press km down
+8 press km right
+8 press km right
+# pad0: ability top row -> grid -> pick
+8 press pad0 down
+8 press pad0 accept
+20 press pad0 right
+8 press pad0 down
+8 press pad0 down
+20 shot 05-grid
+8 press pad0 accept
+# pad1: team 3
+8 press pad1 right
+20 shot 06-select
+8 press km down
+8 press km accept           # km ready
+8 press pad0 start          # pad0 ready
+8 press pad1 start          # pad1 ready
+30 shot 07-ready
+8 press km accept           # start!
+0 wait match
+0 bot km
+0 bot pad0
+0 bot pad1
+40 shot 08-flyin
+0 wait round
+60 shot 09-round
+8 press km select            # pause prompt (Esc)
+20 shot 09b-pause
+8 press km right
+15 shot 09c-pause-leave-selected
+8 press km left
+8 press km back              # close it again
+# a loser can use the wheel (mid-round with 3 players, or on the winner screen)
+0 wait wheel any
+8 press loser up 4
+30 shot 10-wheel-open
+8 press loser left 4
+20 press loser down 4
+20 press loser left 4
+20 shot 11-wheel-changed
+8 press loser jump 4
+0 wait winner
+10 shot 12-winner-1
+40 shot 13-winner-1-prompts
+8 press km jump              # next level
+0 wait level
+60 shot 14-level-2
+0 wait winner
+60 shot 15-winner-2
+8 press pad0 start           # next level
+0 wait level
+0 wait winner
+60 shot 16-winner-3
+8 press km select            # "ability select": back to character select
+0 wait charsel
+40 shot 17-charsel-back
+8 press km back              # km leaves its box (select -> join)
+10 press km back             # Esc without a box: back to the main menu
+0 wait menu
+60 shot 18-menu-again
+5 quit

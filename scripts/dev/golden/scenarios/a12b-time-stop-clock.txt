@@ -1,0 +1,12 @@
+# Time stop with clocks: as a12-time-stop, but the caster walks back and
+# forth (20-tick steps) from the end of the channel until after time
+# resumes, and P2 (frozen during the stop) walks from tick 1500 on, so the
+# end of the stop and its inversion fade can be timed against motion.
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=12
+player color=4 team=1 abilities=2
+script 1 348: ; 560:1 ; 30: ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 20:L ; 20:R ; 200:
+script 2 1500: ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 30:L ; 30:R ; 100:
+ticks 2200

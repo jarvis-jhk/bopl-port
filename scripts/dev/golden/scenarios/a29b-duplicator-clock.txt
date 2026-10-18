@@ -1,0 +1,13 @@
+# Duplicator with a clock: as a29-duplicator (copy P2, second shot down-right),
+# plus P3 walking back and forth on the main platform the whole time, so the
+# frame/tick alignment stays exact while P1 waits for its cooldown (checks
+# the second cast's timing and the cooldown display).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=29
+player color=4 team=1 abilities=2
+player color=0 team=2 abilities=2
+script 1 409: ; 30:^0 1 ; 300: ; 30:^340 1 ; 300:
+script 3 200: ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R ; 40:L ; 40:R
+ticks 1300

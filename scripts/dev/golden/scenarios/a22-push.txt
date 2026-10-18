@@ -1,0 +1,11 @@
+# Push: grab P3's main platform and push it around.
+# First cast at tick 240 (slot ready at spawn + cooldown + 1.5 s).
+level 6
+seed 11
+abilities 1
+player color=1 team=0 abilities=2
+player color=4 team=1 abilities=2
+player color=0 team=2 abilities=22
+player color=7 team=3 abilities=2
+script 3 240: ; 60:R 1 ; 60:U 1 ; 60:L 1 ; 30: ; 200:
+ticks 900

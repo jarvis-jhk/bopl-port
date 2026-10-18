@@ -1,0 +1,23 @@
+# bopl-xcheck: cross-platform determinism checker (scripts/check-determinism.sh).
+# Deliberately outside the workspace (own [workspace] table): a dev tool that
+# reuses the game's bot logic by path and never ships.
+[package]
+name = "bopl-xcheck"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[[bin]]
+name = "bopl-xcheck"
+path = "src/main.rs"
+
+[dependencies]
+bopl-sim = { path = "../../crates/sim" }
+bopl-content = { path = "../../crates/content" }
+anyhow = "1"
+
+[workspace]
+
+[profile.release]
+debug = false
