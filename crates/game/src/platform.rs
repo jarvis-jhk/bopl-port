@@ -1,5 +1,8 @@
 //! SDL2 platform helpers shared by the windowed host and `--list-devices`.
 
+use std::ffi::{CStr, c_int, c_void};
+use std::sync::OnceLock;
+
 use sdl2::hint;
 
 /// SDL hints set before subsystems start.
@@ -23,12 +26,50 @@ pub fn set_hints() {
     }
 }
 
+/// Looks up an SDL function that is newer than the oldest SDL we run on
+/// (2.0.20, Ubuntu 22.04), so the binary does not need it at link time.
+/// Null when the loaded SDL is too old.
+pub fn sdl_optional_fn(name: &CStr) -> *mut c_void {
+    const LIB: &CStr = if cfg!(windows) {
+        c"SDL2.dll"
+    } else if cfg!(target_os = "macos") {
+        c"libSDL2-2.0.0.dylib"
+    } else {
+        c"libSDL2-2.0.so.0"
+    };
+    // SAFETY: SDL_LoadObject / SDL_LoadFunction take NUL-terminated names;
+    // the library is already loaded (we link it), so this only takes another
+    // reference, which is kept for the life of the process.
+    unsafe {
+        let lib = sdl2::sys::SDL_LoadObject(LIB.as_ptr());
+        if lib.is_null() {
+            return std::ptr::null_mut();
+        }
+        sdl2::sys::SDL_LoadFunction(lib, name.as_ptr())
+    }
+}
+
+type GetWindowSizeInPixels =
+    unsafe extern "C" fn(*mut sdl2::sys::SDL_Window, *mut c_int, *mut c_int);
+
 /// The window's size in pixels (differs from `Window::size` on high-DPI
-/// setups).
+/// setups). SDL < 2.26 has no `SDL_GetWindowSizeInPixels`; there the Vulkan
+/// drawable size is used, which is the same thing.
 pub fn window_pixels(window: &sdl2::video::Window) -> (u32, u32) {
+    static FN: OnceLock<usize> = OnceLock::new();
+    let f = *FN.get_or_init(|| sdl_optional_fn(c"SDL_GetWindowSizeInPixels") as usize);
     let (mut w, mut h) = (0, 0);
-    // SAFETY: valid window pointer for the duration of the call.
-    unsafe { sdl2::sys::SDL_GetWindowSizeInPixels(window.raw(), &mut w, &mut h) };
+    if f != 0 {
+        // SAFETY: the symbol has this signature since SDL 2.26; valid window
+        // pointer for the duration of the call.
+        unsafe {
+            let f: GetWindowSizeInPixels = std::mem::transmute(f);
+            f(window.raw(), &mut w, &mut h);
+        }
+    } else {
+        let (vw, vh) = window.vulkan_drawable_size();
+        (w, h) = (vw as c_int, vh as c_int);
+    }
     (w.max(1) as u32, h.max(1) as u32)
 }
 

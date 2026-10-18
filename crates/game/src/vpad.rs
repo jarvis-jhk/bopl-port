@@ -1,6 +1,6 @@
 //! Simulated controllers for tests (`--virtual-pads FILE`, docs/platform.md
 //! "Testing on a private X server"): SDL virtual joysticks
-//! (`SDL_JoystickAttachVirtualEx`) that look like standard game
+//! (`SDL_JoystickAttachVirtualEx`, plain `SDL_JoystickAttachVirtual` on SDL < 2.24) that look like standard game
 //! controllers, driven by commands appended to a text file. The file is
 //! read from where the previous frame stopped, so a test script can
 //! `echo "tap 0 a" >> FILE` while the game runs. Hot-plug goes through
@@ -19,7 +19,7 @@
 //! ```
 
 use std::collections::BTreeMap;
-use std::ffi::CString;
+use std::ffi::{CString, c_int};
 use std::io::{Read, Seek, SeekFrom};
 use std::path::PathBuf;
 use std::time::{Duration, Instant};
@@ -190,7 +190,22 @@ impl VirtualPads {
             d.button_mask = (1u32 << BUTTONS.len()) - 1;
             d.axis_mask = (1u32 << AXES.len()) - 1;
             d.name = self._name.as_ptr();
-            let index = sys::SDL_JoystickAttachVirtualEx(&d);
+            // SDL_JoystickAttachVirtualEx is SDL 2.24+: look it up at run
+            // time, fall back to the plain variant (no name, all controls
+            // present anyway) on older SDL.
+            type AttachEx = unsafe extern "C" fn(*const sys::SDL_VirtualJoystickDesc) -> c_int;
+            let ex = crate::platform::sdl_optional_fn(c"SDL_JoystickAttachVirtualEx");
+            let index = if ex.is_null() {
+                sys::SDL_JoystickAttachVirtual(
+                    sys::SDL_JoystickType::SDL_JOYSTICK_TYPE_GAMECONTROLLER,
+                    AXES.len() as c_int,
+                    BUTTONS.len() as c_int,
+                    0,
+                )
+            } else {
+                let ex: AttachEx = std::mem::transmute(ex);
+                ex(&d)
+            };
             if index < 0 {
                 return Err(format!("attach: {}", sdl2::get_error()));
             }
