@@ -32,7 +32,6 @@ assets = { linux = "bopl-port-*-linux-x86_64.tar.gz", deck = "bopl-port-*-linux-
 [launch]
 # Linux: play.sh (sets LD_LIBRARY_PATH to the bundled lib/ if there is one, then
 # execs the binary with every argument). Windows: the exe, SDL2.dll beside it.
-# Asset and launcher names are placeholders until packaging (M11).
 exec = { linux = "bopl-port-*/play.sh", deck = "bopl-port-*/play.sh", windows = "bopl-port-*/bopl-port.exe" }
 join = ["--warpzone-join", "{room}"]
 host = ["--warpzone-host"]

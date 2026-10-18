@@ -10,6 +10,8 @@ export TMPDIR="$R/scratch/tmp"
 mkdir -p "$TMPDIR"
 export PATH="$R/tools/cargo/bin:$R/tools/dotnet:$R/tools/dotnet-home/.dotnet/tools:$R/tools/venv/bin:$PATH"
 # Location of the original game (read-only; never written to).
+# A read-only /data/bopl (a sandboxed build worker) wins over the Steam default.
+if [ -z "${BOPL_GAME_DIR:-}" ] && [ -d /data/bopl ]; then BOPL_GAME_DIR=/data/bopl; fi
 export BOPL_GAME_DIR="${BOPL_GAME_DIR:-$HOME/.steam/steam/steamapps/common/Bopl Battle}"
 # Dev: the port's user data dir (import, settings, Warpzone identity) stays in the project.
 export BOPL_PORT_DATA_DIR="$R/cache/userdata"
