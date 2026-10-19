@@ -16,6 +16,7 @@ Up to twelve players in any mix: twelve controllers on one screen, twelve machin
 Warpzone brings public and private rooms, join codes, invite links and NAT traversal; online play uses rollback netcode on the original's deterministic fixed-point simulation, so remote players feel as responsive as the one next to you on the couch."""
 homepage = "https://github.com/jarvis-jhk/bopl-port"
 accent = "#5fc8e8"
+steamgriddb = 5389529   # Bopl Battle, https://www.steamgriddb.com/game/5389529 (warpzone-server >= 0.1.3)
 motif = "arena"
 tier = 2
 local_players = 12

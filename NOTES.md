@@ -23,3 +23,9 @@ The plan is `ROADMAP.md`, the state `docs/STATUS.md`.
 - 2026-10-19: ROADMAP gained a "macOS support" milestone after the current
   priorities (request from the adhoc lane on Jan's behalf; roadmap only, no
   implementation). The old "macOS build" line under Later went into it.
+- 2026-10-19: descriptor gained `steamgriddb = 5389529` (launcher library
+  tile, request from the warpzone lane). Needs warpzone-server >= 0.1.3:
+  older servers reject the field, including the one `scripts/net/dev-server.sh
+  --check` builds from `ext/warpzone` (checkout of 2026-10-16) until ext is
+  re-cloned. Upload to vtt only once vtt runs 0.1.3; not done from this worker
+  (no vtt access here).
