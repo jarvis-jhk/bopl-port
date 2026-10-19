@@ -20,3 +20,6 @@ The plan is `ROADMAP.md`, the state `docs/STATUS.md`.
   cannot have (no game data). In CI, Wine can only cover the data-free parts
   (exe smoke start, Fix vectors / LUT hash, sim runs on a synthetic level if
   xcheck gets one). Decide that in the next session.
+- 2026-10-19: ROADMAP gained a "macOS support" milestone after the current
+  priorities (request from the adhoc lane on Jan's behalf; roadmap only, no
+  implementation). The old "macOS build" line under Later went into it.
